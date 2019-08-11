@@ -1,20 +1,31 @@
-import uuid from "uuid";
+import { GET_PRODUCTS, ADD_PRODUCT, REMOVE_PRODUCT } from "../actions/products";
 
-import { ADD_PRODUCT, REMOVE_PRODUCT } from "../actions/products";
-
-const initialState = [
-  { id: uuid(), name: "Eggs" },
-  { id: uuid(), name: "Milk" },
-  { id: uuid(), name: "Steak" },
-  { id: uuid(), name: "Water" }
-];
+const initialState = {
+  isLoading: false,
+  error: null,
+  data: []
+};
 
 const products = (state = initialState, action) => {
   switch (action.type) {
+    case GET_PRODUCTS:
+      return {
+        isLoading: false,
+        error: null,
+        data: action.payload
+      };
     case ADD_PRODUCT:
-      return [...state, { id: uuid(), name: action.name }];
+      return {
+        isLoading: false,
+        error: null,
+        data: [action.payload, ...state.data]
+      };
     case REMOVE_PRODUCT:
-      return state.filter(product => product.id !== action.id);
+      return {
+        isLoading: false,
+        error: null,
+        data: state.data.filter(product => product._id !== action.payload)
+      };
     default:
       return state;
   }
