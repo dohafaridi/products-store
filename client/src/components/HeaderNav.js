@@ -10,6 +10,8 @@ import {
   Container
 } from "reactstrap";
 
+import RegisterModal from "./User/RegisterModal";
+
 const HeaderNav = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -20,6 +22,11 @@ const HeaderNav = () => {
         <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
+            <NavItem>
+              <NavLink href="#">
+                <RegisterModal />
+              </NavLink>
+            </NavItem>
             <NavItem>
               <NavLink href="https://github.com/dohafaridi/products-store">
                 Github
