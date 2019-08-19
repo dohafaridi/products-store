@@ -9,23 +9,24 @@ const { jwtSecret } = require("../../config/keys");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  const { email, password } = req.body;
+  const { email, password } = req.query;
+
   if (!email || !password) {
     return res
       .status(400)
-      .json({ error: "Email and Password fields are mandatory" });
+      .json({ message: "Email and Password fields are mandatory" });
   }
 
   User.findOne({ email }).then(user => {
     if (!user) {
       return res
         .status(401)
-        .json({ error: "Email and/or Password are incorrect!" });
+        .json({ message: "Email and/or Password are incorrect!" });
     }
 
-    bcrypt.compare(user.password, hash, (_, isMatch) => {
+    bcrypt.compare(password, user.password, (_, isMatch) => {
       if (!isMatch) {
-        return res.status(400).json({ msg: "Invalid credentials" });
+        return res.status(400).json({ message: "Invalid credentials" });
       }
 
       jwt.sign(

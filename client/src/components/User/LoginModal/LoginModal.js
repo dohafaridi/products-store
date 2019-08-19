@@ -14,24 +14,19 @@ import {
 
 import { useInput } from "../../../helpers";
 
-const RegisterModal = ({ addUser, errors }) => {
+const LoginModal = ({ login, errors }) => {
   const [isOpen, setIsOpen] = useState(false);
   const emailProps = useInput("", "email", "email");
-  const nameProps = useInput("", "text", "name");
   const passwordProps = useInput("", "password", "password");
 
   return (
     <>
-      <span onClick={() => setIsOpen(!isOpen)}>Register</span>
+      <span onClick={() => setIsOpen(!isOpen)}>Login</span>
       <Modal isOpen={isOpen} toggle={() => setIsOpen(!isOpen)}>
-        <ModalHeader toggle={() => setIsOpen(!isOpen)}>Register</ModalHeader>
+        <ModalHeader toggle={() => setIsOpen(!isOpen)}>Login</ModalHeader>
         <ModalBody>
           {errors ? <Alert color="danger">{errors.message}</Alert> : null}
           <Form>
-            <FormGroup>
-              <Label for={nameProps.id}>Name</Label>
-              <Input {...nameProps} />
-            </FormGroup>
             <FormGroup>
               <Label for={emailProps.id}>Email</Label>
               <Input {...emailProps} />
@@ -45,11 +40,9 @@ const RegisterModal = ({ addUser, errors }) => {
         <ModalFooter>
           <Button
             color="primary"
-            onClick={() =>
-              addUser(nameProps.value, emailProps.value, passwordProps.value)
-            }
+            onClick={() => login(emailProps.value, passwordProps.value)}
           >
-            Register
+            Login
           </Button>
           <Button color="secondary" onClick={() => setIsOpen(!isOpen)}>
             Cancel
@@ -60,4 +53,4 @@ const RegisterModal = ({ addUser, errors }) => {
   );
 };
 
-export default RegisterModal;
+export default LoginModal;

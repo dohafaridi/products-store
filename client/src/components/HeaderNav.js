@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 
 import RegisterModal from "./User/RegisterModal";
+import LoginModal from "./User/LoginModal";
 
 const HeaderNav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,6 +26,11 @@ const HeaderNav = () => {
             <NavItem>
               <NavLink href="#">
                 <RegisterModal />
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="#">
+                <LoginModal />
               </NavLink>
             </NavItem>
             <NavItem>
