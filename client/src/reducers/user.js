@@ -5,10 +5,12 @@ import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILED,
+  USER_LOGOUT,
   USER_CLEAR_ERRORS
 } from "../actions/user";
 
 const initialState = {
+  isAuthenticated: localStorage.getItem("token"),
   isLoading: false,
   errors: null,
   data: null
@@ -19,22 +21,29 @@ const user = (state = initialState, action) => {
     case USER_REGISTER_REQUEST:
     case USER_LOGIN_REQUEST:
       return {
-        isLoading: true,
-        errors: null,
-        data: null
+        ...state,
+        isLoading: true
       };
     case USER_REGISTER_SUCCESS:
     case USER_LOGIN_SUCCESS:
+      localStorage.setItem("token", action.payload.token);
       return {
-        isLoading: false,
-        errors: null,
+        ...state,
+        isAuthenticated: true,
         data: action.payload
       };
     case USER_REGISTER_FAILED:
     case USER_LOGIN_FAILED:
       return {
+        ...state,
+        errors: action.payload
+      };
+    case USER_LOGOUT:
+      localStorage.removeItem("token");
+      return {
+        isAuthenticated: false,
         isLoading: false,
-        errors: action.payload,
+        errors: null,
         data: null
       };
     case USER_CLEAR_ERRORS:
