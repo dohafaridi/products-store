@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import Products from "./Products";
 import { getProducts, addProduct, removeProduct } from "../../actions/products";
 
-const mapStateToProps = ({ products }) => ({
-  products: products.data
+const mapStateToProps = ({ products, user }) => ({
+  products: products.data,
+  user
 });
 
 const mapDispatchToProps = dispatch => ({

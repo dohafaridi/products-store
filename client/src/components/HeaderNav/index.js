@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import HeaderNav from "./HeaderNav";
 import { logout } from "../../actions/user";
 
-const mapStateToProps = ({ user: { data } }) => ({
-  user: data && data.user
+const mapStateToProps = ({ user }) => ({
+  user
 });
 
 const mapDispatchToProps = dispatch => ({

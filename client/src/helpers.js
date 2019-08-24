@@ -1,8 +1,12 @@
 import { useState } from "react";
 
-export const getAxiosHeaders = ({ user: { data } }) => ({
+export const getAxiosHeaders = ({
+  user: {
+    data: { token }
+  }
+}) => ({
   "Content-Type": "application/json",
-  "x-auth-token": data ? data.token : null
+  "x-auth-token": token
 });
 
 export const useInput = (initialValue, type, id) => {

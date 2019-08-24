@@ -14,6 +14,17 @@ export const USER_CLEAR_ERRORS = "USER_CLEAR_ERRORS";
 
 export const USER_LOGOUT = "USER_LOGOUT";
 
+export const loadUser = () => (dispatch, getState) => {
+  axios
+    .get("/api/auth/user", { headers: getAxiosHeaders(getState()) })
+    .then(res => {
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: res.data
+      });
+    });
+};
+
 export const addUser = (name, email, password) => dispatch => {
   dispatch({
     type: USER_REGISTER_REQUEST

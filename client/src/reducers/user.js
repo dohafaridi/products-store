@@ -10,10 +10,12 @@ import {
 } from "../actions/user";
 
 const initialState = {
-  isAuthenticated: localStorage.getItem("token"),
+  isAuthenticated: false,
   isLoading: false,
   errors: null,
-  data: null
+  data: {
+    token: localStorage.getItem("token")
+  }
 };
 
 const user = (state = initialState, action) => {

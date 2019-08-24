@@ -38,11 +38,7 @@ router.get("/", (req, res) => {
 
           res.json({
             token,
-            user: {
-              id: user.id,
-              name: user.name,
-              email: user.email
-            }
+            name: user.name
           });
         }
       );
@@ -53,7 +49,12 @@ router.get("/", (req, res) => {
 router.get("/user", auth, (req, res) => {
   User.findById(req.user.id)
     .select("-password")
-    .then(user => res.json(user));
+    .then(user =>
+      res.json({
+        token: req.header("x-auth-token"),
+        name: user.name
+      })
+    );
 });
 
 module.exports = router;

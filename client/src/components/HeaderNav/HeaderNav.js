@@ -15,7 +15,7 @@ import LoginModal from "../User/LoginModal";
 
 const HeaderNav = ({ logout, user }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const guestLinks = !user ? (
+  const userLinks = !user.isAuthenticated ? (
     <>
       <NavItem>
         <NavLink href="#">
@@ -28,11 +28,10 @@ const HeaderNav = ({ logout, user }) => {
         </NavLink>
       </NavItem>
     </>
-  ) : null;
-  const authenticatedUserLinks = user ? (
+  ) : (
     <>
       <NavItem>
-        <NavLink href="#">Welcome {user.name}</NavLink>
+        <NavLink href="#">Welcome {user.data.name}</NavLink>
       </NavItem>
       <NavItem>
         <NavLink href="#" onClick={logout}>
@@ -40,7 +39,7 @@ const HeaderNav = ({ logout, user }) => {
         </NavLink>
       </NavItem>
     </>
-  ) : null;
+  );
 
   return (
     <Navbar color="dark" dark expand="sm" className="mb-5">
@@ -49,8 +48,7 @@ const HeaderNav = ({ logout, user }) => {
         <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
-            {guestLinks}
-            {authenticatedUserLinks}
+            {userLinks}
           </Nav>
         </Collapse>
       </Container>
